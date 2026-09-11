@@ -6,5 +6,5 @@ import numpy as np
 from PipelineCommon import load_dataset
 
 X = load_dataset() #synthetic by default
-np.savetxt("dataset.csv", X, delimiter=",", fmt="%.6f")
+np.savetxt("figures/generated/dataset.csv", X, delimiter=",", fmt="%.6f")
 print(f"wrote dataset.csv: {X.shape[0]} points, {X.shape[1]} features")
