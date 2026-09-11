@@ -21,7 +21,7 @@ print(f"{len(classes)} clusters; {(labels == -1).sum()} noise")
 for c in classes:
     print(f" cluster {c}: {(labels == c).sum()} points")
 
-np.savetxt("labels.csv", labels, fmt="%d")
+np.savetxt("figures/generated/labels.csv", labels, fmt="%d")
 kmeans_labels = KMeans(n_clusters=len(classes), n_init=10,
                        random_state=0).fit_predict(X)
 MARKERS = ["o", "s", "^", "D", "v", "P"]
@@ -49,5 +49,5 @@ fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.4), sharex=True, sharey=True)
 draw(axes[0], labels, "DBSCAN: shapes stay intact", show_noise=True)
 draw(axes[1], kmeans_labels, "k-means: shapes get sliced", show_noise=False)
 axes[0].set_ylabel("scaled feature $x_2$")
-fig.savefig("../figures/generated/clustered_space.pdf",
+fig.savefig("figures/generated/clustered_space.pdf",
             bbox_inches="tight", transparent=True)
