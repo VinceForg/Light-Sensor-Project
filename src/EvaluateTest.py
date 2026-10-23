@@ -29,7 +29,7 @@ Xte = data["test"]
 
 
 labels = np.loadtxt(
-    "figures/generated/labels.csv",
+    "../figures/generated/labels.csv",
     dtype=int
 )
 
@@ -64,7 +64,7 @@ for c in classes:
 
 # Stored artifact.
 surfaces = np.load(
-    "surfaces.npz"
+    "../figures/generated/surfaces.npz"
 )
 
 tables = {

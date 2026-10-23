@@ -14,7 +14,7 @@ BANDWIDTH = 0.05
 DISPLAY_N = 160
 
 X = load_split_scaled()["train"] #surface is built from training data
-labels = np.loadtxt("figures/generated/labels.csv", dtype=int)
+labels = np.loadtxt("../figures/generated/labels.csv", dtype=int)
 clustered = X[labels != -1]
 noise = X[labels == -1] #unclassified (DBSCAN label -1)
 classes = sorted(set(labels) - {-1})
@@ -70,5 +70,5 @@ ax.set_zlabel("winning density")
 ax.set_title(f"Continuous decision surface ($\\tau ={REJECT_TAU}$, $h={BANDWIDTH}$)")
 ax.legend(fontsize=8, loc="upper left", framealpha =0.9)
 ax.view_init(elev=30, azim=-58)
-fig.savefig("figures/generated/total_distribution.pdf",
+fig.savefig("../figures/generated/total_distribution.pdf",
             bbox_inches="tight", transparent=True)

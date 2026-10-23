@@ -11,7 +11,7 @@ BANDWIDTH = 0.05
 DISPLAY_N = 200 # fine grid used only for the figure, not for storage
 
 X = load_split_scaled()["train"] # KDE is fit on TRAINING data only
-labels = np.loadtxt("figures/generated/labels.csv", dtype=int)
+labels = np.loadtxt("../figures/generated/labels.csv", dtype=int)
 classes = sorted(set(labels) - {-1})
 xx, yy, grid_points = make_grid()
 
@@ -19,7 +19,7 @@ xx, yy, grid_points = make_grid()
 kdes = {c: fit_density(X[labels == c], BANDWIDTH) for c in classes}
 surfaces = {c: normalise_peak(evaluate_on_grid(kdes[c], grid_points, xx))
             for c in classes}
-np.savez("surfaces.npz", **{f"c{c}": s for c, s in surfaces.items()})
+np.savez("../figures/generated/surfaces.npz", **{f"c{c}": s for c, s in surfaces.items()})
 
 # The figure shows the true KDE on a fine grid -- the continuous density
 # before the lookup grid coarsens it. Compare against the stored bytes in
@@ -44,5 +44,5 @@ for ax, c in zip(np.atleast_1d(axes), classes):
 
 np.atleast_1d(axes)[0].set_ylabel("scaled feature $x_2$")
 fig.colorbar(im, ax=axes, shrink=0.85, label="normalised density")
-fig.savefig("figures/generated/class_surfaces_continuous.pdf",
+fig.savefig("../figures/generated/class_surfaces_continuous.pdf",
             bbox_inches="tight", transparent=True)

@@ -1,0 +1,32 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Proposed pipeline}{1}{section.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Online classification on the ESP32-S3 (one sample).}}{1}{algorithm.1}\protected@file@percent }
+\newlabel{alg:online}{{1}{1}{Proposed pipeline}{algorithm.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Application}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method and setup}{2}{section.3}\protected@file@percent }
+\newlabel{sec:method}{{3}{2}{Method and setup}{section.3}{}}
+\newlabel{eq:ema}{{1}{2}{Method and setup}{equation.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces DBSCAN $\varepsilon $ sweep on the training set (log features, $\texttt  {min\_samples}=8$).}}{2}{table.1}\protected@file@percent }
+\newlabel{tab:eps}{{1}{2}{DBSCAN $\varepsilon $ sweep on the training set (log features, $\texttt {min\_samples}=8$)}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Validation mean log-likelihood versus KDE bandwidth $h$.}}{2}{table.2}\protected@file@percent }
+\newlabel{tab:bw}{{2}{2}{Validation mean log-likelihood versus KDE bandwidth $h$}{table.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Evidence}{2}{section.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Raw (grey) and EMA-filtered (black) UV and IR readings for one class, against sample index. The filter suppresses short transients while preserving the class level the classifier depends on.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:filter}{{1}{3}{Raw (grey) and EMA-filtered (black) UV and IR readings for one class, against sample index. The filter suppresses short transients while preserving the class level the classifier depends on}{figure.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces DBSCAN clusters versus true labels, training set, $\varepsilon =0.05$ ($-1$ = noise).}}{3}{table.3}\protected@file@percent }
+\newlabel{tab:dbscan}{{3}{3}{DBSCAN clusters versus true labels, training set, $\varepsilon =0.05$ ($-1$ = noise)}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Model footprint by storage format ($K=4$, $G=16$), plus 16\,B of scaling bounds in every case.}}{3}{table.4}\protected@file@percent }
+\newlabel{tab:footprint}{{4}{3}{Model footprint by storage format ($K=4$, $G=16$), plus 16\,B of scaling bounds in every case}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Predicted versus measured cost on the ESP32-S3.}}{3}{table.5}\protected@file@percent }
+\newlabel{tab:cost}{{5}{3}{Predicted versus measured cost on the ESP32-S3}{table.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Training data in the scaled log-feature space, coloured by DBSCAN cluster (left), true label (centre), and $k$-means with the same $k$ (right). Incandescent and LED occupy the same region, so no clustering of these two features can separate them.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:clusters}{{2}{4}{Training data in the scaled log-feature space, coloured by DBSCAN cluster (left), true label (centre), and $k$-means with the same $k$ (right). Incandescent and LED occupy the same region, so no clustering of these two features can separate them}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Live device predictions on the held-out batch.}}{4}{table.6}\protected@file@percent }
+\newlabel{tab:device}{{6}{4}{Live device predictions on the held-out batch}{table.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The ESP32-S3 with the GUVA-S12SD UV module (GPIO7) and the IR photodiode divider (GPIO8).}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:board}{{3}{4}{The ESP32-S3 with the GUVA-S12SD UV module (GPIO7) and the IR photodiode divider (GPIO8)}{figure.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Limitations and remaining uncertainty}{4}{section.5}\protected@file@percent }
+\gdef \@abspage@last{4}

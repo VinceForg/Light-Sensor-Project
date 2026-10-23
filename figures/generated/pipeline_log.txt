@@ -1,0 +1,114 @@
+
+======================================================================
+[1/8] FilterCSV.py  ->  combined_filtered.csv + raw-vs-filtered plot
+======================================================================
+training rows: 2022  -> combined_filtered.csv
+
+rows per class:
+label
+sun             519
+led             509
+incandescent    501
+shade           493
+
+per-class stats (filtered):
+             sensor1_filt                sensor2_filt               
+                     mean  std  min  max         mean  std  min  max
+label                                                               
+incandescent          0.0  0.0  0.0  0.0          0.0  0.0  0.0  0.0
+led                   0.0  0.0  0.0  0.0          0.1  0.0  0.0  0.1
+shade                 0.0  0.0  0.0  0.0          0.2  0.1  0.1  0.3
+sun                   0.1  0.0  0.0  0.1          0.6  0.0  0.5  0.6
+
+======================================================================
+[2/8] ClusterDBScan.py  ->  labels.csv + confusion table + clustered_space.pdf
+======================================================================
+eps sweep (training set):
+  eps=0.01: 18 clusters, 153 noise
+  eps=0.01: 13 clusters, 72 noise
+  eps=0.01: 8 clusters, 58 noise
+  eps=0.02: 7 clusters, 43 noise
+  eps=0.03: 7 clusters, 30 noise
+  eps=0.03: 7 clusters, 24 noise
+  eps=0.04: 4 clusters, 20 noise
+  eps=0.05: 4 clusters, 16 noise
+
+eps=0.05: 4 clusters; 16 noise
+  cluster 0: 61 points
+  cluster 1: 311 points
+  cluster 2: 771 points
+  cluster 3: 54 points
+
+confusion table (rows = true label, cols = DBSCAN cluster, -1 = noise):
+DBSCAN cluster  -1   0    1    2   3
+true label                          
+incandescent     4   0    0  297   0
+led              0   0    0  305   0
+shade           12  61    0  169  54
+sun              0   0  311    0   0
+
+majority label per cluster:
+  cluster 0 -> shade (61/61 = 100.0%)
+  cluster 1 -> sun (311/311 = 100.0%)
+  cluster 2 -> led (305/771 = 39.6%)
+  cluster 3 -> shade (54/54 = 100.0%)
+
+======================================================================
+[3/8] BandwidthSweep.py  ->  validation-selected bandwidth h
+======================================================================
+     h    val mean log-likelihood
+  0.01                      5.450
+  0.01                      4.665
+  0.01                      4.315
+  0.02                      4.009
+  0.03                      3.762
+  0.03                      3.564
+  0.04                      3.234
+  0.05                      2.965
+
+validation selects h = 0.01 (highest log-likelihood)
+  WARNING: selected h is at the edge of SWEEP -- extend the range.
+
+======================================================================
+[4/8] KdeClassContours.py  ->  surfaces.npz + continuous class maps
+======================================================================
+
+======================================================================
+[5/8] KdeTotalSurface.py  ->  3D decision surface
+======================================================================
+
+======================================================================
+[6/8] DiscretizeSurfaces.py  ->  footprint table + uint8 error + stored maps
+======================================================================
+  storage  B/cell  per class    all 4  vs uint8
+    uint8       1        256     1024        1x
+   uint16       2        512     2048        2x
+  float32       4       1024     4096        4x
+  float64       8       2048     8192        8x
++ 16 bytes of scaling bounds (2 floats per feature)
+uint8 worst-case error: 0.188% of peak
+
+======================================================================
+[7/8] EvaluateTest.py  ->  stored-vs-continuous agreement on test split
+======================================================================
+test points: 405
+stored-vs-continuous agreement on held-out test: 99.8%
+
+confusion (rows = continuous KDE, cols = stored uint8):
+              c0    c1    c2    c3   unk
+   class 0    18     0     0     0     0
+   class 1     0   104     0     0     0
+   class 2     0     0   245     0     1
+   class 3     0     0     0    20     0
+   unknown     0     0     0     0    17
+
+======================================================================
+[8/8] GenerateModelHeader.py  ->  model.h
+======================================================================
+wrote model.h: K=4, G=16
+table size  K*G^2 = 4*16^2 = 1024 bytes
+bounds      4 floats = 16 bytes  -> total 1040 bytes
+class names: ['shade', 'sun', 'indoor', 'shade']
+SCALE_BOUNDS: [0.0, 5.779, 0.1379, 7.8337]
+
+Done in 24.1 s. Full output saved to pipeline_log.txt

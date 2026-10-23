@@ -9,11 +9,11 @@ spends the test set once."""
 import numpy as np
 from PipelineCommon import load_split_scaled, fit_density
 
-SWEEP = [0.03, 0.04, 0.05, 0.06, 0.08, 0.10, 0.12]
+SWEEP = [0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.04, 0.05]
 
 data = load_split_scaled()
 Xtr, Xval = data["train"], data["val"]
-labels = np.loadtxt("figures/generated/labels.csv", dtype=int)
+labels = np.loadtxt("../figures/generated/labels.csv", dtype=int)
 classes = sorted(set(labels) - {-1})
 
 print(f"{'h':>6} {'val mean log-likelihood':>26}")

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PipelineCommon import quantize, dequantize, GRID_N, VIEW_LIM
 
-surfaces = np.load("surfaces.npz")
+surfaces = np.load("../figures/generated/surfaces.npz")
 classes = sorted(int(k[1:]) for k in surfaces.files)
 K = len(classes)
 cells = GRID_N * GRID_N
@@ -37,5 +37,5 @@ for ax, c in zip(np.atleast_1d(axes), classes):
     ax.set_xlabel("scaled feature $x_1$")
 np.atleast_1d(axes)[0].set_ylabel("scaled feature $x_2$")
 fig.colorbar(im, ax=axes, shrink=0.85, label="stored byte (0--255)")
-fig.savefig("figures/generated/class_surfaces_discretized.pdf",
+fig.savefig("../figures/generated/class_surfaces_discretized.pdf",
 bbox_inches="tight", transparent=True)                              

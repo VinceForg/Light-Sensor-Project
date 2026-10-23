@@ -11,11 +11,9 @@ import pandas as pd
 from sklearn.cluster import DBSCAN, KMeans
 from PipelineCommon import load_split_scaled, VIEW_LIM
 
-EPS = 0.08           # <-- set from the sweep below
+EPS = 0.05           # <-- set from the sweep below
 MIN_SAMPLES = 8
-SWEEP = [0.01, 0.02, 0.03, 0.05, 0.08, 0.12]
-
-os.makedirs("/figures/generated", exist_ok=True)
+SWEEP = [0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.04, 0.05]
 
 data = load_split_scaled()
 X = data["train"]          # clustering sees TRAINING data only
@@ -34,14 +32,14 @@ classes = sorted(set(labels) - {-1})
 print(f"\neps={EPS}: {len(classes)} clusters; {(labels == -1).sum()} noise")
 for c in classes:
     print(f"  cluster {c}: {(labels == c).sum()} points")
-np.savetxt("labels.csv", labels, fmt="%d")
+np.savetxt("../figures/generated/labels.csv", labels, fmt="%d")
 
 # --- confusion table: true label x discovered cluster ---
 confusion = pd.crosstab(pd.Series(y_true, name="true label"),
                         pd.Series(labels, name="DBSCAN cluster"))
 print("\nconfusion table (rows = true label, cols = DBSCAN cluster, -1 = noise):")
 print(confusion)
-confusion.to_csv("confusion_dbscan_vs_truth.csv")
+confusion.to_csv("../figures/generated/confusion_dbscan_vs_truth.csv")
 
 # Suggested cluster -> name mapping (majority true label per cluster).
 # Check it by eye before using it for CLASS_NAMES in model.h.
@@ -92,6 +90,6 @@ fig, axes = plt.subplots(1, len(panels), figsize=(3.7 * len(panels), 3.4),
 for ax, (lab, title, noise) in zip(np.atleast_1d(axes), panels):
     draw(ax, np.asarray(lab), title, noise)
 np.atleast_1d(axes)[0].set_ylabel("scaled IR (filtered)")
-fig.savefig("/figures/generated/clustered_space.pdf",
+fig.savefig("../figures/generated/clustered_space.pdf",
             bbox_inches="tight", transparent=True)
 plt.show()

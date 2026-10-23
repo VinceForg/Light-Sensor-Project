@@ -13,7 +13,9 @@ VIEW_LIM = (-0.1, 1.1)
 #Three-way split. Train builds the model ( clustering, KDE, discretization); validation tunes the design choices (bandwidth, grid); test is spent once, on the frozen design, to report an honest number on unseen data.
 TRAIN_FRAC, VAL_FRAC, TEST_FRAC = 0.60, 0.20, 0.20\
 
-DATA_CSV = "/figures/generated/combined_filtered.csv"
+DATA_CSV = "figures/generated/combined_filtered.csv"
+
+BANDWIDTH = 0.03
 
 def _arc(rng, cx, cy, r, a0_deg, a1_deg, n, jitter):
     """n noisy points on the arc of a circle crescent or a full ring."""
@@ -22,9 +24,10 @@ def _arc(rng, cx, cy, r, a0_deg, a1_deg, n, jitter):
     return pts + rng.normal(0.0, jitter, pts.shape)
 
 def load_dataset(csv_path=DATA_CSV):
-    """Filtered sensor readings X (n, 2) and the true labels y (n,)."""
+    """Filtered readings, log-transformed, plus true labels."""
     df = pd.read_csv(csv_path)
     X = df[["sensor1_filt", "sensor2_filt"]].to_numpy()
+    X = np.log1p(X * 4095)          # back to ADC counts, then log(1 + counts)
     y = df["label"].astype(str).to_numpy()
     return X, y
 
